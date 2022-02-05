@@ -34,25 +34,41 @@ function onClickCalculate() {
     const cuponValue = inputCupon.value;
     console.log("entra a onclick")
 
-    const isCuponValid = function (cuponList){
-        return cuponList.name === cuponValue;
-    };
-
-    const userCupon = cuponList.find(isCuponValid);
-    const descuento = userCupon.discount;
-    const precioConDescuento = calcularPrecioConDescuento(priceValue, descuento);
+    const resultPrice = document.getElementById("resultPrice");
+    
+   
+    
     
 
-    if (!userCupon){
-        resultPrice.innerText = "El cupon "+ cuponValue + " no es valido";
-    }else if (priceValue <= 0){            
-        const resultPrice = document.getElementById("resultPrice");
-        resultPrice.innerText = "Introduce un precio mayor a 0"; 
-    }else if (descuento <= 0){
-        resultPrice.innerText = "El precio con un 0% de descuento es: $"+ precioConDescuento; 
+    if (cuponValue != ""){
+        const userCupon = cuponList.find(cupon => cupon.name === cuponValue)
+        if (!userCupon){
+            resultPrice.innerText = "El cupon "+ cuponValue + " no es valido";
+        } else {
+            const descuento = userCupon.discount;
+            const precioConDescuento = calcularPrecioConDescuento(priceValue, descuento); 
+            if (priceValue <= 0 ){           
+            
+            
+                resultPrice.innerText = "Introduce un precio mayor a 0"; 
+                
+            }else if (descuento <= 0){
+                resultPrice.innerText = "El precio con un 0% de descuento es: $"+ precioConDescuento; 
+            }else{
+                resultPrice.innerText = "El precio con un " + descuento + "%  de descuento es: $"+ precioConDescuento; 
+            }
+        }
     }else{
-        resultPrice.innerText = "El precio con un " + descuento + "%  de descuento es: $"+ precioConDescuento; 
-    }
+        if (priceValue <= 0 ){           
+            
+            resultPrice.innerText = "Introduce un precio mayor a 0"; 
+        }else{
+            resultPrice.innerText = "El Total es de : $"+ priceValue; 
+        }
+    
+    
+    
+}
 }
 
 // console.log({
