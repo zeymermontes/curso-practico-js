@@ -1,5 +1,20 @@
-const precioOriginal = 120;
-const descuento = 18;
+
+
+const cuponList = [
+    {
+    name: "promo10",
+    discount: 10
+    },
+    {
+    name: "promo25",
+    discount: 25
+    },
+    {
+    name: "promo50",
+    discount: 50
+    }
+
+]
 
 function calcularPrecioConDescuento(precio,descuento){
 
@@ -9,22 +24,34 @@ function calcularPrecioConDescuento(precio,descuento){
 }
 
 function onClickCalculate() {
+
+
     
     const inputPrice = document.getElementById("InputPrice");
     const priceValue = inputPrice.value;
 
-    const inputDiscount = document.getElementById("InputDiscount");
-    const discountValue = inputDiscount.value;
+    const inputCupon = document.getElementById("InputCupon");
+    const cuponValue = inputCupon.value;
     console.log("entra a onclick")
 
-    const precioConDescuento = calcularPrecioConDescuento(priceValue, discountValue);
-    const resultPrice = document.getElementById("resultPrice");
-    if (priceValue <= 0){
+    const isCuponValid = function (cuponList){
+        return cuponList.name === cuponValue;
+    };
+
+    const userCupon = cuponList.find(isCuponValid);
+    const descuento = userCupon.discount;
+    const precioConDescuento = calcularPrecioConDescuento(priceValue, descuento);
+    
+
+    if (!userCupon){
+        resultPrice.innerText = "El cupon "+ cuponValue + " no es valido";
+    }else if (priceValue <= 0){            
+        const resultPrice = document.getElementById("resultPrice");
         resultPrice.innerText = "Introduce un precio mayor a 0"; 
-    }else if (discountValue <= 0){
+    }else if (descuento <= 0){
         resultPrice.innerText = "El precio con un 0% de descuento es: $"+ precioConDescuento; 
     }else{
-        resultPrice.innerText = "El precio con un " + discountValue + "%  de descuento es: $"+ precioConDescuento; 
+        resultPrice.innerText = "El precio con un " + descuento + "%  de descuento es: $"+ precioConDescuento; 
     }
 }
 
