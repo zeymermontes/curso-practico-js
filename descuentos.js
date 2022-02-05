@@ -43,7 +43,7 @@ function onClickCalculate() {
     if (cuponValue != ""){
         const userCupon = cuponList.find(cupon => cupon.name === cuponValue)
         if (!userCupon){
-            resultPrice.innerText = "El cupon "+ cuponValue + " no es valido";
+            resultPrice.innerText = 'El cupon "'+ cuponValue + '" no es valido';
         } else {
             const descuento = userCupon.discount;
             const precioConDescuento = calcularPrecioConDescuento(priceValue, descuento); 
