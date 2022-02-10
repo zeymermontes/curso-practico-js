@@ -7,9 +7,10 @@ function calcularMediaAritmetica(lista){
     return promedioLista;
 }
 
-function calcularMediana(lista){
+function calcularMediana(listaUnsorted){
 
-    
+    const lista = listaUnsorted.sort((a, b) => {return a-b});
+    console.log(lista)
     let mediana;
     let posicion = parseInt((lista.length)/2);
     
